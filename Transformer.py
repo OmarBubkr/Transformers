@@ -51,16 +51,16 @@ class SelfAttention(nn.Module):
 
 
 class TransformerBlock(nn.Module):
-    def __init__(self, embed_size, heads, dropout, forward_expansion):
+    def __init__(self, input_size, heads, dropout, forward_expansion):
         super(TransformerBlock, self).__init__()
-        self.attention = SelfAttention(embed_size, heads)
-        self.norm1 = nn.LayerNorm(embed_size)
-        self.norm2 = nn.LayerNorm(embed_size)
+        self.attention = SelfAttention(input_size, heads)
+        self.norm1 = nn.LayerNorm(input_size)
+        self.norm2 = nn.LayerNorm(input_size)
 
         self.feed_forward = nn.Sequential(
-            nn.Linear(embed_size, forward_expansion * embed_size),
+            nn.Linear(input_size, forward_expansion * input_size),
             nn.ReLU(),
-            nn.Linear(forward_expansion * embed_size, embed_size),
+            nn.Linear(forward_expansion * embed_size, input_size),
         )
 
         self.dropout = nn.Dropout(dropout)
@@ -78,7 +78,7 @@ class Encoder(nn.Module):
     def __init__(
         self,
         src_vocab_size,
-        embed_size,
+        input_size,
         num_layers,
         heads,
         device,
@@ -88,7 +88,7 @@ class Encoder(nn.Module):
     ):
 
         super(Encoder, self).__init__()
-        self.embed_size = embed_size
+        self.embed_size = input_size
         self.device = device
         self.word_embedding = nn.Embedding(src_vocab_size, embed_size)
         self.position_embedding = nn.Embedding(max_length, embed_size)
