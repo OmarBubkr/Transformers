@@ -5,9 +5,9 @@ import torch.nn as nn
 class SelfAttention(nn.Module):
     def __init__(self, input_size, heads):
         super(SelfAttention, self).__init__()
-        self.embed_size = embed_size
+        self.input_size = input_size
         self.heads = heads
-        self.head_dim = embed_size // heads
+        self.head_dim = input_size // heads
 
 
         self.values = nn.Linear(input_size, input_size)
