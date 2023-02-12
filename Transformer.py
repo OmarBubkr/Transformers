@@ -45,7 +45,7 @@ class SelfAttention(nn.Module):
         # attention shape: (N, query_len, heads, head_dim)
         # reshapping for getting the orgain shape of input
 
-        out = self.out(out)
+        out = self.out(attention)
 
         return out
 
