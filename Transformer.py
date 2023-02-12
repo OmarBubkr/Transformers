@@ -60,7 +60,7 @@ class TransformerBlock(nn.Module):
         self.feed_forward = nn.Sequential(
             nn.Linear(input_size, forward_expansion * input_size),
             nn.ReLU(),
-            nn.Linear(forward_expansion * embed_size, input_size),
+            nn.Linear(forward_expansion * input_size, input_size),
         )
 
         self.dropout = nn.Dropout(dropout)
